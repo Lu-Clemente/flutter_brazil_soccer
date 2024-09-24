@@ -3,6 +3,7 @@ import 'package:flutter_brazil_soccer/models/championship.dart';
 import 'package:flutter_brazil_soccer/models/club.dart';
 import 'package:flutter_brazil_soccer/repositories/clubs_repository.dart';
 import 'package:flutter_brazil_soccer/screens/add_championship_screen.dart';
+import 'package:flutter_brazil_soccer/screens/edit_championship_screen.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
@@ -31,6 +32,67 @@ class _ClubScreenState extends State<ClubScreen> with TickerProviderStateMixin {
     );
   }
 
+  void openDialog(Championship championship) {
+    showDialog(
+      context: context,
+      builder: (BuildContext ctx) {
+        final club = Provider.of<ClubsRepository>(context, listen: false)
+            .clubs
+            .firstWhere(
+              (club) => club.name == widget.club.name,
+            );
+        return AlertDialog(
+          title:
+              const Text("Would you like to edit or delete this championship?"),
+          content: Text(
+            "${championship.competition} - ${championship.year} (${club.name})",
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Provider.of<ClubsRepository>(
+                  context,
+                  listen: false,
+                ).removeChampionship(
+                  club: club,
+                  championship: championship,
+                );
+                Get.back();
+              },
+              style: ButtonStyle(
+                foregroundColor: WidgetStateProperty.all(Colors.red),
+              ),
+              child: const Text("Delete"),
+            ),
+            TextButton(
+              onPressed: () {
+                Get.back();
+                Get.to(
+                  () => EditChampionshipScreen(
+                    championship: championship,
+                    club: club,
+                  ),
+                  fullscreenDialog: true,
+                );
+              },
+              style: ButtonStyle(
+                foregroundColor: WidgetStateProperty.all(Colors.blue),
+              ),
+              child: const Text("Edit"),
+            ),
+            TextButton(
+              onPressed: () => Get.back(),
+              style: ButtonStyle(
+                foregroundColor: WidgetStateProperty.all(Colors.grey[800]),
+              ),
+              child: const Text("Cancel"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Widget championshipsTab() {
     final club = Provider.of<ClubsRepository>(
       context,
@@ -54,6 +116,7 @@ class _ClubScreenState extends State<ClubScreen> with TickerProviderStateMixin {
           leading: const Icon(Icons.emoji_events),
           title: Text(championships[index].competition),
           trailing: Text(championships[index].year.toString()),
+          onLongPress: () => openDialog(championships[index]),
         );
       },
       itemCount: championshipCount,

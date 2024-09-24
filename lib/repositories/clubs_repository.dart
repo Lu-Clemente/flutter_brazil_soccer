@@ -17,6 +17,33 @@ class ClubsRepository extends ChangeNotifier {
     }
   }
 
+  void removeChampionship({
+    required Club club,
+    required Championship championship,
+  }) {
+    final index = _clubs.indexWhere((c) => c.name == club.name);
+    if (index != -1) {
+      _clubs[index].championships.remove(championship);
+      notifyListeners();
+    }
+  }
+
+  void editChampionship({
+    required Club club,
+    required Championship oldChampionship,
+    required Championship newChampionship,
+  }) {
+    final index = _clubs.indexWhere((c) => c.name == club.name);
+    if (index != -1) {
+      final club = _clubs[index];
+      final championshipIndex = club.championships.indexOf(oldChampionship);
+      if (championshipIndex != -1) {
+        club.championships[championshipIndex] = newChampionship;
+        notifyListeners();
+      }
+    }
+  }
+
   ClubsRepository() {
     _clubs.addAll([
       Club(
