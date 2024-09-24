@@ -3,6 +3,7 @@ import 'package:flutter_brazil_soccer/models/club.dart';
 import 'package:flutter_brazil_soccer/repositories/clubs_repository.dart';
 import 'package:flutter_brazil_soccer/screens/club_screen.dart';
 import 'package:flutter_brazil_soccer/screens/home_controller.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,6 +20,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     controller = HomeController();
+  }
+
+  goToClubScreen(Club club) {
+    Get.to(() => ClubScreen(key: Key(club.name), club: club));
   }
 
   @override
@@ -41,17 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
               title: Text(club.name),
               subtitle: Text('Championships: ${club.championships.length}'),
               trailing: Text('${club.points} pts'),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext ctx) => ClubScreen(
-                        key: Key(
-                          club.name,
-                        ),
-                        club: club),
-                  ),
-                );
-              },
+              onTap: () => goToClubScreen(club),
             );
           },
           separatorBuilder: (BuildContext ctx, int index) => const Divider(),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_brazil_soccer/models/championship.dart';
 import 'package:flutter_brazil_soccer/models/club.dart';
 import 'package:flutter_brazil_soccer/repositories/clubs_repository.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class AddChampionshipScreen extends StatefulWidget {
@@ -33,9 +34,11 @@ class _AddChampionshipScreenState extends State<AddChampionshipScreen> {
       save(championship);
     }
 
-    const SnackBar(
-      content: Text("Unable to add championship"),
-      duration: Duration(seconds: 2),
+    Get.snackbar(
+      'Error',
+      'Unable to add championship',
+      snackPosition: SnackPosition.BOTTOM,
+      duration: const Duration(seconds: 2),
     );
   }
 
@@ -47,11 +50,13 @@ class _AddChampionshipScreenState extends State<AddChampionshipScreen> {
 
     widget.redirect();
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text("Championship added successfully"),
-        duration: Duration(seconds: 2),
-      ),
+    Get.snackbar(
+      'Success',
+      'New championship added',
+      snackPosition: SnackPosition.BOTTOM,
+      duration: const Duration(seconds: 2),
+      backgroundColor: Colors.grey[800],
+      colorText: Colors.white,
     );
   }
 

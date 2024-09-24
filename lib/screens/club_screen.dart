@@ -3,6 +3,7 @@ import 'package:flutter_brazil_soccer/models/championship.dart';
 import 'package:flutter_brazil_soccer/models/club.dart';
 import 'package:flutter_brazil_soccer/repositories/clubs_repository.dart';
 import 'package:flutter_brazil_soccer/screens/add_championship_screen.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class ClubScreen extends StatefulWidget {
@@ -16,18 +17,16 @@ class ClubScreen extends StatefulWidget {
 
 class _ClubScreenState extends State<ClubScreen> with TickerProviderStateMixin {
   void navigatoToChampinshipsTab() {
-    Navigator.of(context).pop();
+    Get.back();
     _tabController.animateTo(1);
   }
 
   void goToNewChampionshipScreen() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => AddChampionshipScreen(
-          club: widget.club,
-          key: Key(widget.club.name),
-          redirect: navigatoToChampinshipsTab,
-        ),
+    Get.to(
+      () => AddChampionshipScreen(
+        key: const Key("AddChampionshipScreen"),
+        club: widget.club,
+        redirect: navigatoToChampinshipsTab,
       ),
     );
   }
