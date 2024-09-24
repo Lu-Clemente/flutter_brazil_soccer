@@ -1,16 +1,19 @@
+import 'dart:collection';
+
 import 'package:flutter_brazil_soccer/models/club.dart';
 import 'package:flutter_brazil_soccer/models/championship.dart';
 import 'package:flutter/material.dart';
 
-class ClubsRepository {
+class ClubsRepository extends ChangeNotifier {
   final List<Club> _clubs = [];
 
-  get clubs => _clubs;
+  UnmodifiableListView<Club> get clubs => UnmodifiableListView(_clubs);
 
   void addChampionship(Club club, Championship championship) {
     final index = _clubs.indexWhere((c) => c.name == club.name);
     if (index != -1) {
       _clubs[index].championships.add(championship);
+      notifyListeners();
     }
   }
 

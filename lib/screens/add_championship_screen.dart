@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_brazil_soccer/models/championship.dart';
 import 'package:flutter_brazil_soccer/models/club.dart';
+import 'package:flutter_brazil_soccer/repositories/clubs_repository.dart';
+import 'package:provider/provider.dart';
 
 class AddChampionshipScreen extends StatefulWidget {
   final Club club;
-  final ValueChanged<Championship> onSave;
-  // Function(Championship) onSave;
+  final Function redirect;
 
   const AddChampionshipScreen({
     super.key,
     required this.club,
-    required this.onSave,
+    required this.redirect,
   });
 
   @override
@@ -29,8 +30,29 @@ class _AddChampionshipScreenState extends State<AddChampionshipScreen> {
         year: int.parse(_yearController.text),
       );
 
-      widget.onSave(championship);
+      save(championship);
     }
+
+    const SnackBar(
+      content: Text("Unable to add championship"),
+      duration: Duration(seconds: 2),
+    );
+  }
+
+  void save(Championship competition) {
+    Provider.of<ClubsRepository>(
+      context,
+      listen: false,
+    ).addChampionship(widget.club, competition);
+
+    widget.redirect();
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Championship added successfully"),
+        duration: Duration(seconds: 2),
+      ),
+    );
   }
 
   @override

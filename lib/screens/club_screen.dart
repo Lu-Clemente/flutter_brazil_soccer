@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_brazil_soccer/models/championship.dart';
 import 'package:flutter_brazil_soccer/models/club.dart';
+import 'package:flutter_brazil_soccer/repositories/clubs_repository.dart';
 import 'package:flutter_brazil_soccer/screens/add_championship_screen.dart';
+import 'package:provider/provider.dart';
 
 class ClubScreen extends StatefulWidget {
   final Club club;
@@ -18,35 +20,26 @@ class _ClubScreenState extends State<ClubScreen> with TickerProviderStateMixin {
     _tabController.animateTo(1);
   }
 
-  void addChampionship(Championship competition) {
-    setState(() {
-      widget.club.championships.add(competition);
-    });
-
-    navigatoToChampinshipsTab();
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text("Championship added successfully"),
-        duration: Duration(seconds: 2),
-      ),
-    );
-  }
-
   void goToNewChampionshipScreen() {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => AddChampionshipScreen(
           club: widget.club,
-          onSave: addChampionship,
           key: Key(widget.club.name),
+          redirect: navigatoToChampinshipsTab,
         ),
       ),
     );
   }
 
   Widget championshipsTab() {
-    final championshipCount = widget.club.championships.length;
+    final club = Provider.of<ClubsRepository>(
+      context,
+    ).clubs.firstWhere(
+          (club) => club.name == widget.club.name,
+        );
+
+    final championshipCount = club.championships.length;
 
     if (championshipCount == 0) {
       return const Center(
@@ -54,7 +47,7 @@ class _ClubScreenState extends State<ClubScreen> with TickerProviderStateMixin {
       );
     }
 
-    final championships = widget.club.championships;
+    final championships = club.championships;
 
     return ListView.separated(
       itemBuilder: (BuildContext ctx, int index) {

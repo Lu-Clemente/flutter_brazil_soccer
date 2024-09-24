@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_brazil_soccer/repositories/clubs_repository.dart';
 import 'package:flutter_brazil_soccer/screens/home_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ClubsRepository(),
+      child: const MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -10,11 +17,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.lightGreen,
-        primaryColor: Colors.green[700],
-      ),
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomeScreen(),
     );

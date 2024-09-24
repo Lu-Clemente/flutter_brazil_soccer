@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_brazil_soccer/models/club.dart';
+import 'package:flutter_brazil_soccer/repositories/clubs_repository.dart';
 import 'package:flutter_brazil_soccer/screens/club_screen.dart';
 import 'package:flutter_brazil_soccer/screens/home_controller.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -30,12 +32,14 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: ListView.separated(
+      body: Consumer<ClubsRepository>(
+        builder: (context, repository, child) => ListView.separated(
           itemBuilder: (BuildContext ctx, int index) {
-            final Club club = controller.standings[index];
+            final Club club = repository.clubs[index];
             return ListTile(
               leading: Image.network(club.shield),
               title: Text(club.name),
+              subtitle: Text('Championships: ${club.championships.length}'),
               trailing: Text('${club.points} pts'),
               onTap: () {
                 Navigator.of(context).push(
@@ -52,7 +56,9 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           separatorBuilder: (BuildContext ctx, int index) => const Divider(),
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          itemCount: controller.standings.length),
+          itemCount: repository.clubs.length,
+        ),
+      ),
     );
   }
 }
