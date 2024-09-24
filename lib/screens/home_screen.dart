@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_brazil_soccer/controllers/theme_controller.dart';
 import 'package:flutter_brazil_soccer/models/club.dart';
 import 'package:flutter_brazil_soccer/repositories/clubs_repository.dart';
 import 'package:flutter_brazil_soccer/screens/club_screen.dart';
-import 'package:flutter_brazil_soccer/screens/home_controller.dart';
+import 'package:flutter_brazil_soccer/controllers/home_controller.dart';
 import 'package:flutter_brazil_soccer/widgets/shield.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late HomeController controller;
+  ThemeController themeController = ThemeController.to;
 
   @override
   void initState() {
@@ -37,6 +39,17 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(color: Colors.white),
         ),
         iconTheme: const IconThemeData(color: Colors.white),
+        actions: [
+          IconButton(
+            icon: Obx(() => Icon(
+                  themeController.isDarkMode.value
+                      ? Icons.light_mode
+                      : Icons.dark_mode,
+                  color: Colors.white,
+                )),
+            onPressed: themeController.changeTheme,
+          ),
+        ],
       ),
       body: Consumer<ClubsRepository>(
         builder: (context, repository, child) => ListView.separated(
