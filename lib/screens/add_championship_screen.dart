@@ -32,6 +32,7 @@ class _AddChampionshipScreenState extends State<AddChampionshipScreen> {
       );
 
       save(championship);
+      return;
     }
 
     Get.snackbar(
