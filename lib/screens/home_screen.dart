@@ -3,6 +3,7 @@ import 'package:flutter_brazil_soccer/models/club.dart';
 import 'package:flutter_brazil_soccer/repositories/clubs_repository.dart';
 import 'package:flutter_brazil_soccer/screens/club_screen.dart';
 import 'package:flutter_brazil_soccer/screens/home_controller.dart';
+import 'package:flutter_brazil_soccer/widgets/shield.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
@@ -42,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
           itemBuilder: (BuildContext ctx, int index) {
             final Club club = repository.clubs[index];
             return ListTile(
-              leading: Image.network(club.shield),
+              leading: Shield(imageSrc: club.shield, size: 40),
               title: Text(club.name),
               subtitle: Text('Championships: ${club.championships.length}'),
               trailing: Text('${club.points} pts'),

@@ -4,6 +4,7 @@ import 'package:flutter_brazil_soccer/models/club.dart';
 import 'package:flutter_brazil_soccer/repositories/clubs_repository.dart';
 import 'package:flutter_brazil_soccer/screens/add_championship_screen.dart';
 import 'package:flutter_brazil_soccer/screens/edit_championship_screen.dart';
+import 'package:flutter_brazil_soccer/widgets/shield.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
@@ -191,9 +192,7 @@ class _ClubScreenState extends State<ClubScreen> with TickerProviderStateMixin {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(16),
-                  child: Image.network(
-                    widget.club.shield.replaceAll("40x40", "100x100"),
-                  ),
+                  child: Shield(imageSrc: widget.club.shield, size: 100),
                 ),
               ],
             ),

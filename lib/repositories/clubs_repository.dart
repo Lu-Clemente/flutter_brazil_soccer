@@ -49,105 +49,109 @@ class ClubsRepository extends ChangeNotifier {
       Club(
         name: 'Flamengo',
         points: 71,
-        shield: 'https://e.imguol.com/futebol/brasoes/40x40/flamengo.png',
+        shield: 'https://e.imguol.com/futebol/brasoes/100x100/flamengo.png',
         color: Colors.red,
       ),
       Club(
           name: 'Internacional',
           points: 69,
           shield:
-              'https://e.imguol.com/futebol/brasoes/40x40/internacional.png',
+              'https://e.imguol.com/futebol/brasoes/100x100/internacional.png',
           color: Colors.red),
       Club(
           name: 'Atlético-MG',
           points: 65,
-          shield: 'https://e.imguol.com/futebol/brasoes/40x40/atletico-mg.png',
+          shield:
+              'https://e.imguol.com/futebol/brasoes/100x100/atletico-mg.png',
           color: Colors.black),
       Club(
           name: 'São Paulo',
           points: 63,
-          shield: 'https://e.imguol.com/futebol/brasoes/40x40/sao-paulo.png',
+          shield: 'https://e.imguol.com/futebol/brasoes/100x100/sao-paulo.png',
           color: Colors.red),
       Club(
           name: 'Fluminense',
           points: 61,
-          shield: 'https://e.imguol.com/futebol/brasoes/40x40/fluminense.png',
+          shield: 'https://e.imguol.com/futebol/brasoes/100x100/fluminense.png',
           color: Colors.green),
       Club(
           name: 'Grêmio',
           points: 59,
-          shield: 'https://e.imguol.com/futebol/brasoes/40x40/gremio.png',
+          shield: 'https://e.imguol.com/futebol/brasoes/100x100/gremio.png',
           color: Colors.blue),
       Club(
           name: 'Palmeiras',
           points: 58,
-          shield: 'https://e.imguol.com/futebol/brasoes/40x40/palmeiras.png',
+          shield: 'https://e.imguol.com/futebol/brasoes/100x100/palmeiras.png',
           color: Colors.green),
       Club(
           name: 'Santos',
           points: 54,
-          shield: 'https://e.imguol.com/futebol/brasoes/40x40/santos.png',
+          shield: 'https://e.imguol.com/futebol/brasoes/100x100/santos.png',
           color: Colors.white),
       Club(
           name: 'Athletico-PR',
           points: 53,
-          shield: 'https://e.imguol.com/futebol/brasoes/40x40/atletico-pr.png',
+          shield:
+              'https://e.imguol.com/futebol/brasoes/100x100/atletico-pr.png',
           color: Colors.red),
       Club(
           name: 'Bragantino',
           points: 53,
           shield:
-              'https://e.imguol.com/futebol/brasoes/40x40/red-bull-bragantino.png',
+              'https://e.imguol.com/futebol/brasoes/100x100/red-bull-bragantino.png',
           color: Colors.red),
       Club(
           name: 'Ceará',
           points: 52,
-          shield: 'https://e.imguol.com/futebol/brasoes/40x40/ceara.png',
+          shield: 'https://e.imguol.com/futebol/brasoes/100x100/ceara.png',
           color: Colors.black),
       Club(
           name: 'Corinthians',
           points: 51,
-          shield: 'https://e.imguol.com/futebol/brasoes/40x40/corinthians.png',
+          shield:
+              'https://e.imguol.com/futebol/brasoes/100x100/corinthians.png',
           color: Colors.black),
       Club(
           name: 'Atlético-GO',
           points: 50,
-          shield: 'https://e.imguol.com/futebol/brasoes/40x40/atletico-go.png',
+          shield:
+              'https://e.imguol.com/futebol/brasoes/100x100/atletico-go.png',
           color: Colors.black),
       Club(
           name: 'Bahia',
           points: 44,
-          shield: 'https://e.imguol.com/futebol/brasoes/40x40/bahia.png',
+          shield: 'https://e.imguol.com/futebol/brasoes/100x100/bahia.png',
           color: Colors.blue),
       Club(
           name: 'Sport',
           points: 42,
-          shield: 'https://e.imguol.com/futebol/brasoes/40x40/sport.png',
+          shield: 'https://e.imguol.com/futebol/brasoes/100x100/sport.png',
           color: Colors.red),
       Club(
           name: 'Fortaleza',
           points: 41,
-          shield: 'https://e.imguol.com/futebol/brasoes/40x40/fortaleza.png',
+          shield: 'https://e.imguol.com/futebol/brasoes/100x100/fortaleza.png',
           color: Colors.blue),
       Club(
           name: 'Vasco',
           points: 41,
-          shield: 'https://e.imguol.com/futebol/brasoes/40x40/vasco.png',
+          shield: 'https://e.imguol.com/futebol/brasoes/100x100/vasco.png',
           color: Colors.black),
       Club(
           name: 'Goiás',
           points: 37,
-          shield: 'https://e.imguol.com/futebol/brasoes/40x40/goias.png',
+          shield: 'https://e.imguol.com/futebol/brasoes/100x100/goias.png',
           color: Colors.green),
       Club(
           name: 'Coritiba',
           points: 31,
-          shield: 'https://e.imguol.com/futebol/brasoes/40x40/coritiba.png',
+          shield: 'https://e.imguol.com/futebol/brasoes/100x100/coritiba.png',
           color: Colors.green),
       Club(
           name: 'Botafogo',
           points: 27,
-          shield: 'https://e.imguol.com/futebol/brasoes/40x40/botafogo.png',
+          shield: 'https://e.imguol.com/futebol/brasoes/100x100/botafogo.png',
           color: Colors.black),
     ]);
   }
