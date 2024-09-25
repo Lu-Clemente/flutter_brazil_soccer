@@ -10,7 +10,14 @@ class ClubsRepository extends ChangeNotifier {
 
   UnmodifiableListView<Club> get clubs => UnmodifiableListView(_clubs);
 
-  void addChampionship(Club club, Championship championship) {
+  void addChampionship(Club club, Championship championship) async {
+    var db = await DB.get();
+    final int id = await db.insert('championships', {
+      'competition': championship.competition,
+      'year': championship.year,
+      'club_id': club.id,
+    });
+    championship.id = id;
     final index = _clubs.indexWhere((c) => c.name == club.name);
     if (index != -1) {
       _clubs[index].championships.add(championship);
@@ -21,10 +28,16 @@ class ClubsRepository extends ChangeNotifier {
   void removeChampionship({
     required Club club,
     required Championship championship,
-  }) {
+  }) async {
+    var db = await DB.get();
+    await db.delete(
+      'championships',
+      where: 'id = ?',
+      whereArgs: [championship.id],
+    );
     final index = _clubs.indexWhere((c) => c.name == club.name);
     if (index != -1) {
-      _clubs[index].championships.remove(championship);
+      _clubs[index].championships.removeWhere((c) => c.id == championship.id);
       notifyListeners();
     }
   }
@@ -33,13 +46,25 @@ class ClubsRepository extends ChangeNotifier {
     required Club club,
     required Championship oldChampionship,
     required Championship newChampionship,
-  }) {
+  }) async {
+    var db = await DB.get();
+    final int id = await db.update(
+      'championships',
+      {
+        'competition': newChampionship.competition,
+        'year': newChampionship.year,
+      },
+      where: 'id = ?',
+      whereArgs: [oldChampionship.id],
+    );
+    newChampionship.id = id;
     final index = _clubs.indexWhere((c) => c.name == club.name);
     if (index != -1) {
-      final club = _clubs[index];
-      final championshipIndex = club.championships.indexOf(oldChampionship);
+      final championshipIndex = _clubs[index]
+          .championships
+          .indexWhere((c) => c.id == oldChampionship.id);
       if (championshipIndex != -1) {
-        club.championships[championshipIndex] = newChampionship;
+        _clubs[index].championships[championshipIndex] = newChampionship;
         notifyListeners();
       }
     }
@@ -172,8 +197,26 @@ class ClubsRepository extends ChangeNotifier {
         points: club['points'],
         shield: club['shield'],
         color: Color(int.parse(club['color'], radix: 16)),
+        championships: await getChampionships(club['id']),
       ));
     }
     notifyListeners();
+  }
+
+  Future<List<Championship>> getChampionships(int clubId) async {
+    var db = await DB.get();
+    final List<Map<String, dynamic>> championships = await db.query(
+      'championships',
+      where: 'club_id = ?',
+      whereArgs: [clubId],
+    );
+
+    return championships
+        .map((championship) => Championship(
+              id: championship['id'],
+              competition: championship['competition'],
+              year: championship['year'],
+            ))
+        .toList();
   }
 }
