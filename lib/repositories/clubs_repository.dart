@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:flutter_brazil_soccer/database/db.dart';
 import 'package:flutter_brazil_soccer/models/club.dart';
 import 'package:flutter_brazil_soccer/models/championship.dart';
 import 'package:flutter/material.dart';
@@ -44,8 +45,8 @@ class ClubsRepository extends ChangeNotifier {
     }
   }
 
-  ClubsRepository() {
-    _clubs.addAll([
+  static setupClubs() {
+    return [
       Club(
         name: 'Flamengo',
         points: 71,
@@ -153,6 +154,26 @@ class ClubsRepository extends ChangeNotifier {
           points: 27,
           shield: 'https://e.imguol.com/futebol/brasoes/100x100/botafogo.png',
           color: Colors.black),
-    ]);
+    ];
+  }
+
+  ClubsRepository() {
+    initRepository();
+  }
+
+  void initRepository() async {
+    var db = await DB.get();
+    final List<Map<String, dynamic>> clubs = await db.query('clubs');
+
+    for (final club in clubs) {
+      _clubs.add(Club(
+        id: club['id'],
+        name: club['name'],
+        points: club['points'],
+        shield: club['shield'],
+        color: Color(int.parse(club['color'], radix: 16)),
+      ));
+    }
+    notifyListeners();
   }
 }
